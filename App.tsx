@@ -9,6 +9,7 @@ import ThemeToggle from './components/ThemeToggle';
 const App: React.FC = () => {
   const [theme, setTheme] = useState<Theme>('light');
   const [videoId, setVideoId] = useState<string | null>(null);
+  const [urlError, setUrlError] = useState<string | null>(null);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -47,6 +48,7 @@ const App: React.FC = () => {
   };
 
   const handleUrlSubmit = (url: string) => {
+    setUrlError(null);
     const extractedId = extractYouTubeID(url);
     setVideoId(extractedId);
 
@@ -56,8 +58,17 @@ const App: React.FC = () => {
       urlParams.set('v', extractedId);
       window.history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
     } else {
+      if(url.trim()){
+        setUrlError('Invalid YouTube URL. Please make sure it\'s a valid video link.');
+      }
       urlParams.delete('v');
       window.history.pushState({}, '', `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ''}`);
+    }
+  };
+  
+  const handleInputChange = () => {
+    if(urlError) {
+      setUrlError(null);
     }
   };
 
@@ -70,7 +81,12 @@ const App: React.FC = () => {
       <main className="w-full max-w-4xl flex flex-col items-center space-y-6 sm:space-y-8">
         <Header />
         <div className="w-full max-w-2xl p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 transition-all duration-500">
-          <InputBar onSubmit={handleUrlSubmit} />
+          <InputBar onSubmit={handleUrlSubmit} onInputChange={handleInputChange} hasError={!!urlError} />
+          {urlError && (
+            <p className="mt-2 text-center text-red-600 dark:text-red-500 font-medium text-sm">
+              {urlError}
+            </p>
+          )}
         </div>
         <VideoPlayer videoId={videoId} />
 
