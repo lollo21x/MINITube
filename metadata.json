@@ -1,0 +1,5 @@
+{
+  "name": "MINITube",
+  "description": "A minimal web application to watch YouTube videos. Paste a link into the central bar to start watching. Features light and dark modes for a comfortable viewing experience.",
+  "requestFramePermissions": []
+}
