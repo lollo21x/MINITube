@@ -76,7 +76,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 transition-colors duration-500 font-sans">
       <a
-        href="http://minitube.dootinc.dpdns.org"
+        href="http://ministream.dootinc.dpdns.org"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed top-5 left-5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-full hover:bg-violet-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-75 z-10"
